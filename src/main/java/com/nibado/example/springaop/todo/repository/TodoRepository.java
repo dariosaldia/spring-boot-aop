@@ -1,6 +1,6 @@
-package com.nibado.example.springaop.todo;
+package com.nibado.example.springaop.todo.repository;
 
-import com.nibado.example.springaop.aspects.Timed;
+import com.nibado.example.springaop.annotation.Timed;
 import com.nibado.example.springaop.todo.domain.TodoList;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.nibado.example.springaop.aspects;
+package com.nibado.example.springaop.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
