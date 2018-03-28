@@ -1,4 +1,4 @@
-package com.nibado.example.springaop.aspects;
+package com.nibado.example.springaop.exception;
 
 public class ForbiddenException extends RuntimeException {
     public ForbiddenException(final String message) {

@@ -1,4 +1,4 @@
-package com.nibado.example.springaop.aspects;
+package com.nibado.example.springaop.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class TimeLogAspect {
-    @Around("@annotation(com.nibado.example.springaop.aspects.Timed) && execution(public * *(..))")
+    @Around("@annotation(com.nibado.example.springaop.annotation.Timed) && execution(public * *(..))")
     public Object time(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long start = System.currentTimeMillis();
 

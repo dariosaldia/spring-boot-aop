@@ -1,33 +1,30 @@
-package com.nibado.example.springaop.todo;
+package com.nibado.example.springaop.controller;
 
-import com.nibado.example.springaop.aspects.Restrict;
-import com.nibado.example.springaop.todo.domain.TodoList;
-import com.nibado.example.springaop.todo.dto.AllTodos;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
-import java.util.concurrent.Callable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.nibado.example.springaop.annotation.ValidUserType;
+import com.nibado.example.springaop.service.TodoServiceInterface;
+import com.nibado.example.springaop.todo.domain.Todo;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/todo")
 @Slf4j
 public class TodoController {
-    private final TodoRepository repository;
-
+    
     @Autowired
-    public TodoController(final TodoRepository repository) {
-        this.repository = repository;
+    private TodoServiceInterface todoServiceInterface;
+
+    @GetMapping(value = "/todos/user")
+    @ValidUserType
+    public List<Todo> allTodosForUser(@RequestParam Long user_Id) {
+        log.info("GET all todo's for user {}", user_Id);
+        return todoServiceInterface.allTodosForUser(user_Id);
     }
 
-    @RequestMapping(value = "/me", method = RequestMethod.GET, produces = "application/json")
-    public Callable<AllTodos> allTodos(@RequestHeader("user-id") final UUID userId) {
-        log.info("GET all todo's for user {}", userId);
-        return () -> new AllTodos(repository.get(userId));
-    }
-
+    /*
     @RequestMapping(value = "/me/{todo}", method = RequestMethod.GET, produces = "application/json")
     public Callable<ResponseEntity<TodoList>> todoList(@RequestHeader("user-id") final UUID userId, @PathVariable("todo") final String todoList) {
         log.info("GET todo {} for user {}", todoList, userId);
@@ -76,4 +73,5 @@ public class TodoController {
             return ResponseEntity.accepted().build();
         };
     }
+    */
 }
