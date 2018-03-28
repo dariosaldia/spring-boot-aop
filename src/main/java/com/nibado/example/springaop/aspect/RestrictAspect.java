@@ -1,6 +1,6 @@
-package com.nibado.example.springaop.aspects;
+package com.nibado.example.springaop.aspect;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -8,14 +8,15 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
+import com.nibado.example.springaop.annotation.Restrict;
+import com.nibado.example.springaop.exception.ForbiddenException;
+import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
 @Slf4j
 public class RestrictAspect {
-    @Before("@annotation(com.nibado.example.springaop.aspects.Restrict) && execution(public * *(..))")
+    @Before("@annotation(com.nibado.example.springaop.annotation.Restrict) && execution(public * *(..))")
     public void restrict(final JoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Restrict annotation = signature.getMethod().getAnnotation(Restrict.class);

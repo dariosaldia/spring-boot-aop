@@ -1,4 +1,4 @@
-package com.nibado.example.springaop.aspects;
+package com.nibado.example.springaop.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Timed {
+public @interface Restrict {
+    boolean localOnly() default false;
+    boolean admin() default true;
 }
